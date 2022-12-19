@@ -9,6 +9,7 @@
   "author": "Ivannikova Karyna",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^12.0.1"
+    "cypress": "^12.0.1",
+    "cypress-wait-until": "^1.7.2"
   }
 }
