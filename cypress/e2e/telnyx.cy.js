@@ -37,9 +37,12 @@ describe('Testing Telnyx site', function () {
     it('TS_0001_3', function (){
 
           cy.get('body > div > div > footer').scrollIntoView();
-          cy.get('#__next > div.sc-2e7b2fa9-0.eiIMbO > footer > div.sc-7b6c9f9b-3.iznSjj > div > div:nth-child(6) > div > ul > li:nth-child(3) > a').invoke('removeAttr', 'target').click({ force: true });
-          cy.url().should('include','Telnyx');
-                     
+          cy.get('footer > div.sc-7b6c9f9b-3.iznSjj > div > div:nth-child(6) > div > ul > li:nth-child(3) > a')
+          .then($elem => {
+            $elem[0].removeAttribute('target');
+            $elem[0].click();
+            cy.url().should('include','Telnyx');
+          });        
       }); 
   
 
