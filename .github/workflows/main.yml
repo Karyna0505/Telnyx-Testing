@@ -1,59 +1,42 @@
 name: Cypress Telnyx
+
+# целевые события для запуска
+# в данном случае это push и pull_request, в ветку master
 on:
   push:
-    branches:    
-      - 'master'
+    branches: [ master ]
   pull_request:
+    branches: [ master ]
+
+# выполняемые действия
 jobs:
-  build-and-test:
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        node: [14, 16, 18]
-    name: Test on Node v${{ matrix.node }}
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    # запускаются по шагам
+    # name - название шага
+    # в github actions будет выводиться название шага, и процессы
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
         with:
-          node-version: ${{ matrix.node }}
-      - uses: bahmutov/npm-install@v1
-      - run: npm run format
-      - run: npm run build
-      - run: npm test
-      - run: npm run check:markdown
+          persist-credentials: false
 
+      - name: Install 🔧
+        run: npm install
 
-  release:
-    runs-on: ubuntu-20.04
-    name: release
-    needs: [build-and-test]
-    # only release from the master branch
-    if: github.ref == 'refs/heads/master'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - uses: bahmutov/npm-install@v1
-      # https://github.com/cycjimmy/semantic-release-action
-      - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v2
-        id: semantic
+      - name: Run Test 🔨
+        run: npm cypress open
+
+      - name: Build 👷
+        run: npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
-          branch: master
-          extra_plugins: |
-            @semantic-release/git
-            @semantic-release/changelog
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Push updates to branch for major version
-        # if there is a new version published, let's say v1.2.3
-        # then this step will update branch "v1" to this commit
-        # https://github.com/cypress-io/github-action/branches
-        if: steps.semantic.outputs.new_release_published == 'true'
-        run: 'git push https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:refs/heads/v${{steps.semantic.outputs.new_release_major_version}}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+          # в значение GITHUB_TOKEN помещается ссылка на ваш секрет в репозитории
+          # в данном случае его название KEY
+          GITHUB_TOKEN: ${{ secrets.TELNYXTESTS}}
+          BRANCH: gh-pages
+          FOLDER: public
+          CLEAN: true
