@@ -14,8 +14,8 @@ jobs:
         with:
           project: ./Telnyx
           browser: chrome
-          build: yarn build
-          start: yarn start
+          build: npm install
+          start: npm run test
           wait-on: "https://telnyx.com/"
         env:
             GITHUB_TOKEN: ${{ secrets.TELNYXTESTS }}
