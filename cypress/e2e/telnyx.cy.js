@@ -28,12 +28,13 @@ describe('Testing Telnyx site', function () {
           });
     });
     it('TS_0001_2', function (){  
-        cy.once('uncaught:exception', () => false);       
+        cy.get('body > div > div > footer').scrollIntoView();       
         cy.contains('Follow on Twitter').invoke('removeAttr', 'target').click().wait(6000);
         cy.url().should('include','telnyx');
            
     });
     it('TS_0001_3', function (){
+        cy.get('body > div > div > footer').scrollIntoView();
         cy.contains('Follow on Facebook').invoke('removeAttr', 'target').click({ force: true });
         cy.url().should('include','Telnyx');
                    
