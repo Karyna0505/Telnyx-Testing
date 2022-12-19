@@ -33,7 +33,7 @@ describe('Testing Telnyx site', function () {
            
     });
     it('TS_0001_3', function (){
-        cy.contains('Follow on Facebook').invoke('removeAttr', 'target').click();
+        cy.contains('Follow on Facebook').invoke('removeAttr', 'target').click({ force: true });
         cy.url().should('include','Telnyx');
                    
     }); 
