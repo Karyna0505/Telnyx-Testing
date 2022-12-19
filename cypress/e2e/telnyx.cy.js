@@ -34,33 +34,13 @@ describe('Testing Telnyx site', function () {
            
     });
      
-    // it.only('TS_0001_3', function (){
-
-    //       //cy.get('#__next > div > footer').scrollIntoView();
-    //       cy.get('footer > div > div > div:nth-child(6) > div > ul > li:nth-child(3) > a')
-    //       .then($elem => {
-    //         console.log($elem);
-    //         $elem[0].removeAttr('target') 
-    //         .click({ force: true });})
-    //         cy.url().should('include','Telnyx');
-    //      ;        
-    //   }); 
+   
     it('TS_0001_3', function (){
 
-      // cy.get('#__next > div > footer >div > div').scrollIntoView();
-      // cy.contains('Follow on Facebook').invoke('removeAttr', 'target').click({ force: true });
-      // cy.url().should('include','Telnyx');    
-      cy.waitUntil(() =>
-      cy.get('#__next > div.sc-2e7b2fa9-0.eiIMbO > footer > div.sc-7b6c9f9b-3.iznSjj > div > div:nth-child(6) > div > ul > li:nth-child(3) > a')
-        .as('facebook')
-        .wait(10) // for some reason this is needed, otherwise next line returns `true` even if click() fails due to detached element in the next step
-        .then($el => Cypress.dom.isAttached($el)),
-    { timeout: 5000, interval: 10 })
-
-      .get('@facebook')
-      .invoke('removeAttr', 'target')
-      .click()
-      cy.url().should('include','Telnyx');
+        cy.get('#__next > div > footer ').scrollIntoView();
+        cy.contains('Follow on Facebook').invoke('removeAttr', 'target').click({ force: true });
+        cy.url().should('include','Telnyx');    
+    
     }); 
   
 
