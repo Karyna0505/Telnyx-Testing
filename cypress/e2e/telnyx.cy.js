@@ -40,10 +40,10 @@ describe('Testing Telnyx site', function () {
           cy.get('footer > div > div > div:nth-child(6) > div > ul > li:nth-child(3) > a')
           .then($elem => {
             console.log($elem);
-            $elem.removeAttr('target');
-            $elem.click();
+            $elem.removeAttr('target'); })
+            .click();
             cy.url().should('include','Telnyx');
-          });        
+         ;        
       }); 
   
 
