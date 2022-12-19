@@ -33,12 +33,15 @@ describe('Testing Telnyx site', function () {
         cy.url().should('include','telnyx');
            
     });
+     
     it('TS_0001_3', function (){
-        cy.get('body > div > div > footer').scrollIntoView();
-        cy.contains('Follow on Facebook').should('be.visible').invoke('removeAttr', 'target').click({ force: true });
-        cy.url().should('include','Telnyx');
-                   
-    }); 
+
+          cy.get('body > div > div > footer').scrollIntoView();
+          cy.get('#__next > div.sc-2e7b2fa9-0.eiIMbO > footer > div.sc-7b6c9f9b-3.iznSjj > div > div:nth-child(6) > div > ul > li:nth-child(3) > a').invoke('removeAttr', 'target').click({ force: true });
+          cy.url().should('include','Telnyx');
+                     
+      }); 
+  
 
     it('TS_0002', function (){ 
     
