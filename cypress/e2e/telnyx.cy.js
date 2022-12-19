@@ -41,7 +41,7 @@ describe('Testing Telnyx site', function () {
           .then($elem => {
             console.log($elem);
             $elem.removeAttr('target'); })
-            .click();
+            .click({ force: true });
             cy.url().should('include','Telnyx');
          ;        
       }); 
