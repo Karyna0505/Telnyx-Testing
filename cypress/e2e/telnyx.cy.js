@@ -35,7 +35,7 @@ describe('Testing Telnyx site', function () {
     });
     it('TS_0001_3', function (){
         cy.get('body > div > div > footer').scrollIntoView();
-        cy.contains('Follow on Facebook').invoke('removeAttr', 'target').click({ force: true });
+        cy.contains('Follow on Facebook').should('be.visible').invoke('removeAttr', 'target').click({ force: true });
         cy.url().should('include','Telnyx');
                    
     }); 
