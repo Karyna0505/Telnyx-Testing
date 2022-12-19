@@ -34,17 +34,24 @@ describe('Testing Telnyx site', function () {
            
     });
      
-    it('TS_0001_3', function (){
+    // it.only('TS_0001_3', function (){
 
-          //cy.get('#__next > div > footer').scrollIntoView();
-          cy.get('footer > div > div > div:nth-child(6) > div > ul > li:nth-child(3) > a')
-          .then($elem => {
-            console.log($elem);
-            $elem[0].removeAttr('target') 
-            .click({ force: true });})
-            cy.url().should('include','Telnyx');
-         ;        
-      }); 
+    //       //cy.get('#__next > div > footer').scrollIntoView();
+    //       cy.get('footer > div > div > div:nth-child(6) > div > ul > li:nth-child(3) > a')
+    //       .then($elem => {
+    //         console.log($elem);
+    //         $elem[0].removeAttr('target') 
+    //         .click({ force: true });})
+    //         cy.url().should('include','Telnyx');
+    //      ;        
+    //   }); 
+    it.only('TS_0001_3', function (){
+
+      cy.get('#__next > div > footer').scrollIntoView();
+      cy.contains('Follow on Facebook').invoke('removeAttr', 'target').click();
+      cy.url().should('include','Telnyx');    
+        
+    }); 
   
 
     it('TS_0002', function (){ 
