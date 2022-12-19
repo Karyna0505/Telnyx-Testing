@@ -55,10 +55,12 @@ describe('Testing Telnyx site', function () {
         .as('facebook')
         .wait(10) // for some reason this is needed, otherwise next line returns `true` even if click() fails due to detached element in the next step
         .then($el => Cypress.dom.isAttached($el)),
-    { timeout: 1000, interval: 10 })
+    { timeout: 5000, interval: 10 })
 
       .get('@facebook')
+      .invoke('removeAttr', 'target')
       .click()
+      cy.url().should('include','Telnyx');
     }); 
   
 
