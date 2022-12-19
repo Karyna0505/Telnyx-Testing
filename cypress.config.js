@@ -17,8 +17,9 @@ module.exports = defineConfig({
 
     chromeWebSecurity: false,
     
-    blockHosts: [ "google-analytics.com", "googletagmanager.com", "accounts.google.com"]
+    blockHosts: [ "google-analytics.com", "googletagmanager.com", "accounts.google.com"],
 
+    
     
   },
 

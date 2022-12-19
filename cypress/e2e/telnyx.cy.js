@@ -34,9 +34,9 @@ describe('Testing Telnyx site', function () {
            
     });
      
-    it('TS_0001_3', function (){
+    it.only('TS_0001_3', function (){
 
-          cy.get('#__next > div > footer').scrollIntoView();
+          //cy.get('#__next > div > footer').scrollIntoView();
           cy.get('footer > div.sc-7b6c9f9b-3.iznSjj > div > div:nth-child(6) > div > ul > li:nth-child(3) > a')
           .then($elem => {
             $elem[0].removeAttribute('target');
