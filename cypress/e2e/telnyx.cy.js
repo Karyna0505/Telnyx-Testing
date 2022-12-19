@@ -45,12 +45,12 @@ describe('Testing Telnyx site', function () {
     //         cy.url().should('include','Telnyx');
     //      ;        
     //   }); 
-    it.only('TS_0001_3', function (){
+    it('TS_0001_3', function (){
 
       cy.get('#__next > div > footer').scrollIntoView();
       cy.contains('Follow on Facebook').invoke('removeAttr', 'target').click();
       cy.url().should('include','Telnyx');    
-        
+
     }); 
   
 
