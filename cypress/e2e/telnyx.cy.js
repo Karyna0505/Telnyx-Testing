@@ -27,7 +27,8 @@ describe('Testing Telnyx site', function () {
             expect(href).to.be.equal('https://www.linkedin.com/company/telnyx/');
           });
     });
-    it('TS_0001_2', function (){         
+    it('TS_0001_2', function (){  
+        cy.once('uncaught:exception', () => false);       
         cy.contains('Follow on Twitter').invoke('removeAttr', 'target').click().wait(6000);
         cy.url().should('include','telnyx');
            
