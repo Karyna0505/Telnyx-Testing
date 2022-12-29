@@ -1,11 +1,27 @@
+import searchPage from "../pages/searchPage";
+import contactMePage from "../pages/contactMePage"
+import mainPage from "../pages/mainPage";
+import menuPage from "../pages/menuPage";
+import loginPage from "../pages/loginPage";
+import easyRegisterPage from "../pages/easyRegisterPage";
+
 describe('Testing Telnyx site', function () { 
     
+    
+    before(() => {
+      cy.fixture('fixture').then(data => {
+        this.data = data;
+      });
+
+    })
+  
     beforeEach(() => {
+        
+        cy.clearCookies()
         cy.visit('/');  
         cy.contains('Accept and close').click();
-        cy.clearCookies()
         
-      })
+    })
 
     afterEach(() => {
         
@@ -13,176 +29,145 @@ describe('Testing Telnyx site', function () {
 
     })
 
-    let userName = ('User');
     let email = (Math.random() + 1).toString(36).substring(5) + '@example.com';
-    let phoneNumber = ('971111111');
     let password = (Math.random() + 1).toString(36).substring(5) + '@Example';
     let randomText = (Math.random() + 1).toString(36).substring(5);
 
-    it('TS_0001_1', function (){ 
-        cy.get('body > div > div > footer').scrollIntoView();
-        cy.contains('Connect on LinkedIn')
-          .invoke('attr', 'href')
-          .then(href => {
-            expect(href).to.be.equal('https://www.linkedin.com/company/telnyx/');
-          });
-    });
-    it('TS_0001_2', function (){  
-        cy.get('#__next > div > footer').scrollIntoView();       
-        cy.contains('Follow on Twitter').invoke('removeAttr', 'target').click().wait(6000);
-        cy.url().should('include','telnyx');
-           
-    });
-     
-   
-    it('TS_0001_3', function (){
-        // unable to perform on github actions
-        // works locally in VSCode
-        cy.get('#__next > div > footer ').scrollIntoView();
-        cy.contains('Follow on Facebook').invoke('removeAttr', 'target').click({ force: true });
-        cy.url().should('include','Telnyx');    
-    
-    }); 
-  
+    it('TS_0001_1 To check clickability, link to Linkedin', function (){ 
+        
+      mainPage.scrollToFooter();
+      mainPage.clickLinkedinLink();
 
-    it('TS_0002', function (){ 
-    
-      cy.get('header a:nth-child(3)').click({ force: true }); 
-      cy.get('input[type="text"]').type('telephone{enter}');
-      cy.get('.g__space.search-results__row')
+    });
+
+    it('TS_0001_2 To check clickability, link to Facebook', function (){
+      
+      mainPage.scrollToFooter();
+      mainPage.clickFacebookLink();
+      cy.url().should('include','Telnyx');    
+  
+  }); 
+
+    it('TS_0001_3 To check clickability, link to Twitter', function (){  
+        
+        mainPage.scrollToFooter();
+        mainPage.clickTwitterLink();
+        cy.url().should('include','telnyx');
+        
+    });
+
+    it('TS_0002 To test search results page with valid data', function (){ 
+
+      searchPage.clickSupportCenter();
+      searchPage.inputValidData();
+      searchPage.elements.searchResult()
         .then(($div) => {
         expect($div).to.contain('telephone')
         });
       
     }); 
 
-    it('TS_0003', function (){ 
+    it('TS_0003 To test search results page with invalid data', function (){ 
       
-      let text = (Math.random() + 1).toString(36).substring(5);
-      cy.get('header a:nth-child(3)').click({ force: true }); 
-      cy.get('input[type="text"]')
-        .type(text)
-        .type('{enter}')
-      cy.get(' div > span')
+      searchPage.clickSupportCenter();
+      searchPage.inputInvalidData(randomText);
+      searchPage.elements.searchNoResult()
           .then(($div) => {
           expect($div).to.have.text('We couldn\'t find any articles for:');
           });    
 
     }); 
 
-    it('TS_0004', function (){   
+    it('TS_0004 To test contact me form with positive scenario', () => {   
       
-      cy.contains('Talk to an expert').click({ force: true }); 
-      cy.get('#Reason_for_Contact__c').select('Sales Inquiry');
-      cy.get('#FirstName')
-        .type(userName).should('have.value', userName);
-      cy.get('#LastName')
-        .type(userName).should('have.value', userName);
-      cy.get('#Email')
-        .type(email).should('have.value', email);
-      cy.get('#Phone_Number_Extension__c').select('+370');  
-      cy.get('#Phone_Number_Base__c')
-        .type(phoneNumber).should('have.value', phoneNumber);
-        cy.get('#Website')
-        .type(userName).should('have.value', userName);
-      cy.get('#Use_Case_Form__c').select('Conversational Messaging');
-        
-      cy.get('span > button').click(); 
-      cy.get('#__next > div > main > div > h1').should('be.visible').and('have.text','Thanks for Reaching Out!')
-           
+      contactMePage.clickTalkToExpert();
+      contactMePage.selectReasonMenu();
+      contactMePage.fillingForm(this.data.Username, email, this.data.PhoneNumber);
+      contactMePage.selectPhoneNumber();
+      contactMePage.selectPrimaryInterest();
+      contactMePage.clickSubmitButton();
+      contactMePage.elements.title()
+        .should('be.visible').and('have.text','Thanks for Reaching Out!')       
 
     }); 
 
-    it('TS_0005', function (){   
+    it('TS_0005 To test contact me form with empty fields', function (){   
       
-      cy.contains('Talk to an expert').click({ force: true });     
-      cy.get('span > button').click(); 
-      cy.get('.mktoError').should('be.visible').and('have.text','This field is required.');
-           
-    }); 
-    it('TS_0006', function (){   
-      
-      cy.contains('Talk to an expert').click({ force: true }); 
-      cy.get('#Reason_for_Contact__c').select('Sales Inquiry');
-      cy.get('#FirstName')
-        .type(randomText).should('have.value', randomText);
-      cy.get('#LastName')
-        .type(randomText).should('have.value', randomText);
-      cy.get('#Email')
-        .type(randomText).should('have.value', randomText);
-      cy.get('#Phone_Number_Extension__c').select('+370');  
-      cy.get('#Phone_Number_Base__c')
-        .type(randomText).should('have.value', randomText);
-        cy.get('#Website')
-        .type(randomText).should('have.value', randomText);
-      cy.get('#Use_Case_Form__c').select('Conversational Messaging');
-        
-      cy.get('span > button').click(); 
-      cy.get('.mktoError').should('be.visible').and('have.text','Must be valid email. example@yourdomain.com');
-                     
-
-    }); 
-
-    it('TS_0007', function (){   
-      
-      cy.contains('Log In').click();     
-      cy.contains('Forgot your password?').click();
-      cy.get('input').type(email)
-      cy.contains('Reset password').click();
-      cy.get('.Message__MessageCopy-izQIRg').should('be.visible').and('have.text','We have accepted your password reset request. If you have a Telnyx account and are unable to reset your password successfully, please contact support for assistance.Log in');
+      contactMePage.clickTalkToExpert();     
+      contactMePage.clickSubmitButton(); 
+      contactMePage.elements.alertMessage()
+        .should('be.visible')
+        .and('have.text','This field is required.');
            
     }); 
 
-    it('TS_0008', function (){   
+    it('TS_0006 To test contact me form with invalid data', function (){   
       
-      cy.get('input[type="email"]').type(email)
-      cy.contains('Try for free').click(); 
-      cy.get('#full_name').type(userName);
-      cy.get('#password').type(password);
-      cy.get('#terms_and_conditions').check({force: true})
-      cy.contains('Create Account').click();
-      // cy.get('#__next > div> main > div > h1')
+      contactMePage.clickTalkToExpert(); 
+      contactMePage.selectReasonMenu();
+      contactMePage.fillingForm(randomText, randomText, randomText);
+      contactMePage.selectPhoneNumber();
+      contactMePage.selectPrimaryInterest();
+      contactMePage.clickSubmitButton();
+      contactMePage.elements.alertMessage()
+        .should('be.visible')
+        .and('have.text','Must be valid email. example@yourdomain.com');
+
+    }); 
+
+    it('TS_0007 To check the password recovery function', function (){   
+      
+      loginPage.clickLoginLink();
+      loginPage.clickForgotPasswordLink();
+      loginPage.inputEmail(email);
+      loginPage.clickResetButton();
+           
+    }); 
+
+    it('TS_0008 To test the positive login scenario', () => {   
+      
+      easyRegisterPage.inputEmail(email);
+      easyRegisterPage.clickTryForFree(); 
+      easyRegisterPage.fillForm(this.data.Username, password);
+      easyRegisterPage.clickCreateButton();
+             // cy.get('#__next > div> main > div > h1')
       //   .should('be.visible').and('have.text','We\'ve sent you an email to activate your account')
       //   .wait(5000)
       // can't do above action, through Capcha
     }); 
-    it('TS_0009_1', function (){ 
+
+    it('TS_0009_1 To check products menu', function (){ 
       
-      cy.contains('Products').trigger('mouseover')
-      cy.get('.sc-7b3980dc-8.iWLbyI').invoke('show')  
-      cy.contains('Elastic SIP Trunking').invoke('show').click({force: true})
-      cy.url().should('include','sip-trunks');
-      cy.get('.sc-31a8cefb-6.eCGKsC > span')
-        .should('be.visible').and('have.text','Flexible SIP Trunks from a global provider')
+      menuPage.hoverProducts();
+      menuPage.visibleProductsList();
+      menuPage.clickElastic();
+      
      });
 
-    it('TS_0009_2', function (){ 
+    it('TS_0009_2 To check products menu', function (){ 
       
-      cy.contains('Products').trigger('mouseover')
-      cy.get('.sc-7b3980dc-8.iWLbyI').invoke('show')  
-      cy.contains('Voice API').invoke('show').click({force: true})
-      cy.url().should('include','voice-api');
-      cy.get('h1 > span')
-        .should('be.visible').and('have.text','Voice API')
+      menuPage.hoverProducts();
+      menuPage.visibleProductsList(); 
+      menuPage.clickVoiceApi();
+
     });
 
-    it('TS_0009_3', function (){ 
+    it('TS_0009_3 To check products menu', function (){ 
       
-      cy.contains('Products').trigger('mouseover')
-      cy.get('.sc-7b3980dc-8.iWLbyI').invoke('show')  
-      cy.contains('Global Numbers').invoke('show').click({force: true})
-      cy.url().should('include','phone-numbers');
-      cy.get('h1 > span > strong')
-        .should('be.visible').and('have.text','Buy business numbers on demand.')
+      menuPage.hoverProducts();
+      menuPage.visibleProductsList();  
+      menuPage.clickGlobalNumbers();
     });
 
-    it('TS_0010', function (){   
+    it('TS_0010 To check the link to the call', function (){   
       
-      cy.contains('Call Us').click({force: true}); 
-      cy.get('#telnyx-click2call-dialog > div > div > h4').should('be.visible').and('have.text','Talk to an Expert');
+      mainPage.clickCallUsLink();
+      mainPage.elements.callDialog()
+        .should('be.visible')
+        .and('have.text','Talk to an Expert');
       
     }); 
     
 
 
-    }) 
+}) 

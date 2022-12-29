@@ -4,6 +4,7 @@ module.exports = defineConfig({
   viewportHeight: 720,
   viewportWidth: 1280,
   
+  
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
@@ -18,8 +19,14 @@ module.exports = defineConfig({
     chromeWebSecurity: false,
     
     blockHosts: [ "google-analytics.com", "googletagmanager.com", "accounts.google.com"],
-
     
+    reporter: "mochawesome",
+    reporterOptions: {
+      reportDir: "cypress/results",
+      overwrite: false,
+      html: false,
+      json: true
+   }
     
   },
 
