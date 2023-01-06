@@ -33,50 +33,49 @@ describe('Testing Telnyx site', function () {
     let password = (Math.random() + 1).toString(36).substring(5) + '@Example';
     let randomText = (Math.random() + 1).toString(36).substring(5);
 
-    it('TS_0001_1 To check clickability, link to Linkedin', function (){ 
-        
-      mainPage.scrollToFooter();
-      mainPage.clickLinkedinLink();
-
-    });
-
-    it('TS_0001_2 To check clickability, link to Facebook', function (){
+    describe('Testing Media Links', () => {
       
-      mainPage.scrollToFooter();
-      mainPage.clickFacebookLink();
-      cy.url().should('include','Telnyx');    
-  
-  }); 
+      it('TS_0001_1 To check clickability, link to Linkedin', function (){ 
+        
+        mainPage.scrollToFooter();
+        mainPage.clickLinkedinLink();
 
-    it('TS_0001_3 To check clickability, link to Twitter', function (){  
+      });
+
+      it('TS_0001_2 To check clickability, link to Facebook', function (){
+      
+        mainPage.scrollToFooter();
+        mainPage.clickFacebookLink();
+        cy.url().should('include','Telnyx');    
+  
+      }); 
+
+      it('TS_0001_3 To check clickability, link to Twitter', function (){  
         
         mainPage.scrollToFooter();
         mainPage.clickTwitterLink();
         cy.url().should('include','telnyx');
         
+      });
+
     });
 
     it('TS_0002 To test search results page with valid data', function (){ 
 
       searchPage.clickSupportCenter();
       searchPage.inputValidData();
-      searchPage.elements.searchResult()
-        .then(($div) => {
-        expect($div).to.contain('telephone')
-        });
+      searchPage.elements.searchResult('have.text','telephone');
       
-    }); 
+    });
+  
 
     it('TS_0003 To test search results page with invalid data', function (){ 
       
       searchPage.clickSupportCenter();
       searchPage.inputInvalidData(randomText);
-      searchPage.elements.searchNoResult()
-          .then(($div) => {
-          expect($div).to.have.text('We couldn\'t find any articles for:');
-          });    
-
-    }); 
+      searchPage.elements.searchNoResult('have.text','We couldn\'t find any articles for:')
+          
+    });    
 
     it('TS_0004 To test contact me form with positive scenario', () => {   
       
@@ -130,10 +129,7 @@ describe('Testing Telnyx site', function () {
       easyRegisterPage.clickTryForFree(); 
       easyRegisterPage.fillForm(this.data.Username, password);
       easyRegisterPage.clickCreateButton();
-             // cy.get('#__next > div> main > div > h1')
-      //   .should('be.visible').and('have.text','We\'ve sent you an email to activate your account')
-      //   .wait(5000)
-      // can't do above action, through Capcha
+       
     }); 
 
     it('TS_0009_1 To check products menu', function (){ 
@@ -142,7 +138,7 @@ describe('Testing Telnyx site', function () {
       menuPage.visibleProductsList();
       menuPage.clickElastic();
       
-     });
+    });
 
     it('TS_0009_2 To check products menu', function (){ 
       

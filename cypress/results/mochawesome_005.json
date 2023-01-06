@@ -1,0 +1,191 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 5,
+    "passes": 3,
+    "pending": 0,
+    "failures": 2,
+    "start": "2022-12-29T12:59:49.623Z",
+    "end": "2022-12-29T13:00:05.371Z",
+    "duration": 15748,
+    "testsRegistered": 5,
+    "passPercent": 60,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "215d299a-57b4-4487-9b93-c2e43af6c70b",
+      "title": "",
+      "fullFile": "cypress\\e2e\\telnyx.cy.js",
+      "file": "cypress\\e2e\\telnyx.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [
+        {
+          "title": "TS_0003 To test search results page with invalid data",
+          "fullTitle": "TS_0003 To test search results page with invalid data",
+          "timedOut": null,
+          "duration": 265,
+          "state": "failed",
+          "speed": null,
+          "pass": false,
+          "fail": true,
+          "pending": false,
+          "context": null,
+          "code": "_searchPage.default.clickSupportCenter();\n_searchPage.default.inputInvalidData(randomText);\n_searchPage.default.elements.searchNoResult().then($div => {\n  expect($div).to.have.text('We couldn\\'t find any articles for:');\n});",
+          "err": {
+            "message": "ReferenceError: randomText is not defined",
+            "estack": "ReferenceError: randomText is not defined\n    at Context.eval (webpack:///./cypress/e2e/telnyx.cy.js:66:34)",
+            "diff": null
+          },
+          "uuid": "c67d093c-bed7-43bc-8b94-283df24129c7",
+          "parentUUID": "215d299a-57b4-4487-9b93-c2e43af6c70b",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "TS_0002 To test search results page with valid data",
+          "fullTitle": "TS_0002 To test search results page with valid data",
+          "timedOut": null,
+          "duration": 4174,
+          "state": "failed",
+          "speed": null,
+          "pass": false,
+          "fail": true,
+          "pending": false,
+          "context": null,
+          "code": "_searchPage.default.clickSupportCenter();\n_searchPage.default.inputValidData();\n_searchPage.default.elements.searchResult().then($div => {\n  expect($div).to.contain('telephone');\n});\nit('TS_0004 To test contact me form with positive scenario', () => {\n  _contactMePage.default.clickTalkToExpert();\n  _contactMePage.default.selectReasonMenu();\n  _contactMePage.default.fillingForm(this.data.Username, email, this.data.PhoneNumber);\n  _contactMePage.default.selectPhoneNumber();\n  _contactMePage.default.selectPrimaryInterest();\n  _contactMePage.default.clickSubmitButton();\n  _contactMePage.default.elements.title().should('be.visible').and('have.text', 'Thanks for Reaching Out!');\n});\nit('TS_0005 To test contact me form with empty fields', function () {\n  _contactMePage.default.clickTalkToExpert();\n  _contactMePage.default.clickSubmitButton();\n  _contactMePage.default.elements.alertMessage().should('be.visible').and('have.text', 'This field is required.');\n});\nit('TS_0006 To test contact me form with invalid data', function () {\n  _contactMePage.default.clickTalkToExpert();\n  _contactMePage.default.selectReasonMenu();\n  _contactMePage.default.fillingForm(randomText, randomText, randomText);\n  _contactMePage.default.selectPhoneNumber();\n  _contactMePage.default.selectPrimaryInterest();\n  _contactMePage.default.clickSubmitButton();\n  _contactMePage.default.elements.alertMessage().should('be.visible').and('have.text', 'Must be valid email. example@yourdomain.com');\n});\nit('TS_0007 To check the password recovery function', function () {\n  _loginPage.default.clickLoginLink();\n  _loginPage.default.clickForgotPasswordLink();\n  _loginPage.default.inputEmail(email);\n  _loginPage.default.clickResetButton();\n});\nit('TS_0008 To test the positive login scenario', () => {\n  _easyRegisterPage.default.inputEmail(email);\n  _easyRegisterPage.default.clickTryForFree();\n  _easyRegisterPage.default.fillForm(this.data.Username, password);\n  _easyRegisterPage.default.clickCreateButton(); // cy.get('#__next > div> main > div > h1')\n  //   .should('be.visible').and('have.text','We\\'ve sent you an email to activate your account')\n  //   .wait(5000)\n  // can't do above action, through Capcha\n});\nit('TS_0009_1 To check products menu', function () {\n  _menuPage.default.hoverProducts();\n  _menuPage.default.visibleProductsList();\n  _menuPage.default.clickElastic();\n});\nit('TS_0009_2 To check products menu', function () {\n  _menuPage.default.hoverProducts();\n  _menuPage.default.visibleProductsList();\n  _menuPage.default.clickVoiceApi();\n});\nit('TS_0009_3 To check products menu', function () {\n  _menuPage.default.hoverProducts();\n  _menuPage.default.visibleProductsList();\n  _menuPage.default.clickGlobalNumbers();\n});\nit('TS_0010 To check the link to the call', function () {\n  _mainPage.default.clickCallUsLink();\n  _mainPage.default.elements.callDialog().should('be.visible').and('have.text', 'Talk to an Expert');\n});",
+          "err": {
+            "message": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `header a:nth-child(3)`, but never found it.",
+            "estack": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `header a:nth-child(3)`, but never found it.\n    at Object.supportCenterLink (webpack:///./cypress/pages/searchPage.js:7:37)\n    at searchPage.clickSupportCenter (webpack:///./cypress/pages/searchPage.js:17:13)\n    at Context.eval (webpack:///./cypress/e2e/telnyx.cy.js:76:17)",
+            "diff": null
+          },
+          "uuid": "6adcbb80-34ce-4e42-b3e1-86234388e68e",
+          "parentUUID": "215d299a-57b4-4487-9b93-c2e43af6c70b",
+          "isHook": false,
+          "skipped": false
+        }
+      ],
+      "suites": [
+        {
+          "uuid": "21d7c1b4-2677-48e5-a7ef-29363ca2e7a4",
+          "title": "Testing Telnyx site",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "TS_0001_1 To check clickability, link to Linkedin",
+              "fullTitle": "Testing Telnyx site TS_0001_1 To check clickability, link to Linkedin",
+              "timedOut": null,
+              "duration": 1980,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "_mainPage.default.scrollToFooter();\n_mainPage.default.clickLinkedinLink();",
+              "err": {},
+              "uuid": "8e044773-d943-491f-9826-11e170946d23",
+              "parentUUID": "21d7c1b4-2677-48e5-a7ef-29363ca2e7a4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TS_0001_2 To check clickability, link to Facebook",
+              "fullTitle": "Testing Telnyx site TS_0001_2 To check clickability, link to Facebook",
+              "timedOut": null,
+              "duration": 2816,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "_mainPage.default.scrollToFooter();\n_mainPage.default.clickFacebookLink();\ncy.url().should('include', 'Telnyx');",
+              "err": {},
+              "uuid": "75376836-1fb7-4d75-83c0-78dad8edf8b4",
+              "parentUUID": "21d7c1b4-2677-48e5-a7ef-29363ca2e7a4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TS_0001_3 To check clickability, link to Twitter",
+              "fullTitle": "Testing Telnyx site TS_0001_3 To check clickability, link to Twitter",
+              "timedOut": null,
+              "duration": 5121,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "_mainPage.default.scrollToFooter();\n_mainPage.default.clickTwitterLink();\ncy.url().should('include', 'telnyx');",
+              "err": {},
+              "uuid": "99d4fa12-9e87-4f90-ae0c-09df20b95d90",
+              "parentUUID": "21d7c1b4-2677-48e5-a7ef-29363ca2e7a4",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "8e044773-d943-491f-9826-11e170946d23",
+            "75376836-1fb7-4d75-83c0-78dad8edf8b4",
+            "99d4fa12-9e87-4f90-ae0c-09df20b95d90"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 9917,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [
+        "c67d093c-bed7-43bc-8b94-283df24129c7",
+        "6adcbb80-34ce-4e42-b3e1-86234388e68e"
+      ],
+      "pending": [],
+      "skipped": [],
+      "duration": 4439,
+      "root": true,
+      "rootEmpty": false,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/results",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

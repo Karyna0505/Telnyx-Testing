@@ -22,6 +22,9 @@ Cypress Test runner "TELNYX" project
 I defined a default configuration (cypress.config.js)  which will be executed when you run.  To run cypress from the command line, type in the terminal
 
     npm run test
+or
+
+    npx cypress run
     
 More details how to run on the link https://docs.cypress.io/guides/getting-started/opening-the-app#What-you-ll-learn
 

@@ -39,7 +39,7 @@ class menuPage {
         this.elements
             .titleElastic()
             .should('be.visible')
-            .and('have.text','Flexible SIP Trunks from a global provider');
+            .and('have.text','Leading Global SIP Trunking Provider');
     }
 
     clickVoiceApi(){

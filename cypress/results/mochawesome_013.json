@@ -1,0 +1,105 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2023-01-06T13:03:58.310Z",
+    "end": "2023-01-06T13:04:05.791Z",
+    "duration": 7481,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "5af913c7-bf22-40ad-8edb-456e38293773",
+      "title": "",
+      "fullFile": "cypress\\e2e\\telnyx.cy.js",
+      "file": "cypress\\e2e\\telnyx.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "5238e891-1840-485f-8d12-8a95f4f38ee1",
+          "title": "Testing Telnyx site",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "TS_0002 To test search results page with valid data",
+              "fullTitle": "Testing Telnyx site TS_0002 To test search results page with valid data",
+              "timedOut": null,
+              "duration": 7057,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "_searchPage.default.clickSupportCenter();\n_searchPage.default.inputValidData();\n_searchPage.default.elements.searchResult('have.text', 'telephone');",
+              "err": {},
+              "uuid": "0d3ce7d7-849a-41c7-8dc8-23a7a7ad1c7e",
+              "parentUUID": "5238e891-1840-485f-8d12-8a95f4f38ee1",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "0d3ce7d7-849a-41c7-8dc8-23a7a7ad1c7e"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 7057,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/results",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

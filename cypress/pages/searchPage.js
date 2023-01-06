@@ -8,6 +8,7 @@ class searchPage{
         searchInput : () => cy.get('input[type="text"]'),
         searchResult : () => cy.get('.g__space.search-results__row'),
         searchNoResult : () => cy.get('div > span'),
+       
     }
     
     
